@@ -158,7 +158,7 @@
                         </li>
                         <li>
                           <a class="menu-item" href="#section-overview"
-                            >Overview</a
+                            >About Us</a
                           >
                         </li>
                         <li>
@@ -295,13 +295,17 @@
                   Creating Value. Shaping Communities.
                 </h2>
                 <p class="wow fadeInUp" data-wow-delay=".6s">
-                  Solitaire Spark is a trusted real estate developer
-                  specializing in premium residential plot layouts in
-                  fast-growing locations. Built on the principles of trust,
-                  transparency, and quality infrastructure, we offer clear-title
-                  plots designed for secure living and high future appreciation.
-                  At Solitaire Spark, we create not just better layouts - but
-                  stronger communities and smarter investments.
+                  Solitaire Spark is a premium plotted residential layout
+                  developed with the vision of creating a secure, well-planned,
+                  and future-ready living environment. Designed to meet the
+                  aspirations of modern home buyers and smart investors,
+                  Solitaire Spark offers clear-title plots in a rapidly
+                  developing location with excellent growth potential. Our focus
+                  is on delivering well-defined infrastructure, legal
+                  transparency, and long-term value. Every plot is thoughtfully
+                  positioned to ensure proper access, ventilation, and efficient
+                  land utilization, making it ideal for building your dream home
+                  or securing a high-return investment.
                 </p>
 
                 <a class="btn-main fx-slide" href="#"
@@ -993,48 +997,6 @@
           </div>
 
           <div class="spacer-double"></div>
-
-          <div class="row g-3">
-            <div class="col-md-3 col-6">
-              <div class="bg-dark-2 py-4 rounded-1 text-center">
-                <h4>Size</h4>
-                <div class="d-flex justify-content-center align-items-center">
-                  <img src="images/svg/size.svg" class="w-40px me-3" alt="" />
-                  <div class="">1665 sqft</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-3 col-6">
-              <div class="bg-dark-2 py-4 rounded-1 text-center">
-                <h4>Beds</h4>
-                <div class="d-flex justify-content-center align-items-center">
-                  <img src="images/svg/bed.svg" class="w-40px me-3" alt="" />
-                  <div class="">5</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-3 col-6">
-              <div class="bg-dark-2 py-4 rounded-1 text-center">
-                <h4>Baths</h4>
-                <div class="d-flex justify-content-center align-items-center">
-                  <img src="images/svg/bath.svg" class="w-40px me-3" alt="" />
-                  <div class="">5</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-3 col-6">
-              <div class="bg-dark-2 py-4 rounded-1 text-center">
-                <h4>Parking Slots</h4>
-                <div class="d-flex justify-content-center align-items-center">
-                  <img src="images/svg/car.svg" class="w-40px me-3" alt="" />
-                  <div class="">5</div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -1287,12 +1249,7 @@
                 </div> -->
 
             <div class="col-md-5">
-              <form
-                name="bookingForm"
-                id="booking_form"
-                method="post"
-                action="booking.php"
-              >
+              <form name="bookingForm" id="booking_form">
                 <div class="row g-4">
                   <div class="col-md-6">
                     <input
@@ -1307,7 +1264,7 @@
 
                   <div class="col-md-6">
                     <input
-                      type="text"
+                      type="email"
                       name="email"
                       id="email"
                       class="form-control"
@@ -1315,10 +1272,20 @@
                       required
                     />
                   </div>
+                  <div class="col-md-6">
+                    <input
+                      type="tel"
+                      name="phone"
+                      id="phone"
+                      class="form-control"
+                      placeholder="Your Phone Number"
+                      required
+                    />
+                  </div>
 
                   <div class="col-md-6">
                     <div
-                      id="date"
+                      id="datepicker"
                       class="relative input-group date"
                       data-date-format="mm-dd-yyyy"
                     >
@@ -1332,7 +1299,7 @@
                     </div>
                   </div>
 
-                  <div class="col-md-6">
+                  <!-- <div class="col-md-6">
                     <div class="relative">
                       <select name="time" id="time" class="form-control">
                         <option value="10:00">10:00</option>
@@ -1351,7 +1318,7 @@
                         class="absolute top-0 end-0 id-color pt-3 pe-3 icofont-simple-down"
                       ></i>
                     </div>
-                  </div>
+                  </div> -->
 
                   <div class="col-md-12">
                     <textarea
@@ -1477,7 +1444,7 @@
     <!-- datepicker begin -->
     <script>
       $(function () {
-        $("#date")
+        $("#datepicker")
           .datepicker({
             autoclose: true,
             todayHighlight: true,
@@ -1486,5 +1453,62 @@
       });
     </script>
     <!-- datepicker close -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("booking_form");
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault(); // STOP form submission
+
+          let name = document.getElementById("name").value.trim();
+          let email = document.getElementById("email").value.trim();
+          let phone = document.getElementById("phone").value.trim();
+          let date = document.querySelector("input[name='date']").value.trim();
+          let message = document.getElementById("message").value.trim();
+
+          let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/i;
+          let phonePattern = /^[0-9]{10}$/;
+
+          let errorBox = document.getElementById("error_message");
+          let successBox = document.getElementById("success_message_col");
+
+          errorBox.style.display = "none";
+          successBox.style.display = "none";
+
+          // VALIDATION
+          if (name === "") {
+            return showError("Enter your name");
+          }
+
+          if (!emailPattern.test(email)) {
+            return showError("Enter valid email");
+          }
+
+          if (!phonePattern.test(phone)) {
+            return showError("Enter valid 10-digit phone number");
+          }
+
+          if (date === "") {
+            return showError("Select date");
+          }
+
+          if (message === "") {
+            return showError("Enter your message");
+          }
+
+          // SUCCESS
+          successBox.style.display = "block";
+
+          // Uncomment this if you want actual PHP submit AFTER validation
+          form.submit();
+        });
+
+        function showError(msg) {
+          let errorBox = document.getElementById("error_message");
+          errorBox.innerText = msg;
+          errorBox.style.display = "block";
+        }
+      });
+    </script>
   </body>
 </html>

@@ -176,8 +176,6 @@ Table of content:
 html {
   position: relative;
   overflow-x: hidden;
-  padding: 0;
-  margin: 0;
 }
 
 body {
@@ -12855,4 +12853,25 @@ img {
     margin-left: auto;
     width: auto;
   }
+}
+
+/*
+form error message
+*/  
+#error_message,
+#success_message_col {
+  display: none;
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#error_message {
+  background: #ffe5e5;
+  color: #d8000c;
+}
+
+#success_message_col {
+  background: #e6ffed;
+  color: #2e7d32;
 }
